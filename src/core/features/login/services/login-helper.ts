@@ -130,7 +130,7 @@ export class CoreLoginHelperProvider {
         if (
             !CoreApp.isSSOAuthenticationOngoing() &&
             currentSite?.isLoggedOut() &&
-            CoreNavigator.isCurrent('/login/reconnect')
+            CoreNavigator.isCurrent('/login')
         ) {
             // User must reauthenticate but he closed the InAppBrowser without doing so, logout him.
             CoreSites.logout();
@@ -897,11 +897,11 @@ export class CoreLoginHelperProvider {
             const info = currentSite.getInfo();
             if (info !== undefined && info.username !== undefined) {
                 // If current page is already reconnect, stop.
-                if (CoreNavigator.isCurrent('/login/reconnect')) {
+                if (CoreNavigator.isCurrent('/login/credentials')) {
                     return;
                 }
 
-                await CoreUtils.ignoreErrors(CoreNavigator.navigate('/login/reconnect', {
+                await CoreUtils.ignoreErrors(CoreNavigator.navigate('/login/credentials', {
                     params: {
                         siteId,
                         ...redirectData,

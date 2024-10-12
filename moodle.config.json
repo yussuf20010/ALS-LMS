@@ -1,6 +1,6 @@
 {
-    "app_id": "com.als.app",
-    "appname": "ALS LMS",
+    "app_id": "com.sef.app",
+    "appname": "SEF",
     "versioncode": 1,
     "versionname": "1.0.0",
     "cache_update_frequency_usually": 420000,
@@ -15,12 +15,12 @@
     "wsservice": "moodle_mobile_app",
     "demo_sites": {
         "student": {
-            "url": "https://als-lms.com/",
+            "url": "https://sef-testing-moodle.meemdev.com/",
             "username": "student",
             "password": "moodle"
         },
         "teacher": {
-            "url": "https://als-lms.com/",
+            "url": "https://sef-testing-moodle.meemdev.com/",
             "username": "teacher",
             "password": "moodle"
         }
@@ -32,13 +32,13 @@
         "high": 120
     },
     "customurlscheme": "moodlemobile",
-    "sites": [{"url":"https://als-lms.com/"}],
+    "sites": [{"url":"https://sef-testing-moodle.meemdev.com/"}],
     "multisitesdisplay": "",
     "sitefindersettings": {},
     "onlyallowlistedsites": false,
     "forcedefaultlanguage": false,
-    "privacypolicy": "https://moodle.net/moodle-app-privacy/",
-    "notificoncolor": "#046252",
+    "privacypolicy": "https://sef-testing-website.meemdev.com/privacy-guidelines",
+    "notificoncolor": "#6a0dad",
     "enableanalytics": false,
     "enableonboarding": true,
     "forceColorScheme": "",

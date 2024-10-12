@@ -121,6 +121,10 @@
             </ion-button>
         </ng-container>
         <ng-container *ngIf="!isEnrolled">
+            <ion-button expand="block" (click)="enroll()" *ngIf="selfEnrolInstances.length || hasBrowserEnrolments" class="ion-text-wrap">
+                {{ 'core.courses.enrolme' | translate }}
+            </ion-button>
+
             <ion-card class="core-info-card ion-text-wrap" *ngIf="!selfEnrolInstances.length && !hasBrowserEnrolments">
                 <ion-item>
                     <ion-icon name="fas-circle-info" slot="start" aria-hidden="true" />

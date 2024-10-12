@@ -33,6 +33,7 @@ import { CoreCronDelegate } from '@services/cron';
 import { CoreSiteInfoCronHandler } from '@services/handlers/site-info-cron';
 import { moodleTransitionAnimation } from '@classes/page-transition';
 import { TestingModule } from '@/testing/testing.module';
+import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 
 /**
  * For translate loader. AoT requires an exported function for factories.
@@ -70,6 +71,7 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
         TestingModule,
     ],
     providers: [
+        InAppBrowser,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
         {
             provide: APP_INITIALIZER,

@@ -145,6 +145,40 @@ export class CoreCourseSummaryPage implements OnInit, OnDestroy {
         await this.getCourse();
     }
 
+    async enroll(): Promise<void> {
+        // eslint-disable-next-line max-len
+        const url = 'https://www.gvhti.site/?fbclid=IwY2xjawEQgopleHRuA2FlbQIxMAABHcw-ZvaoKQDz8I2pe8FFedNr5wHhz6ZAe7QurvgPxLNZ0FkGODfugaxqPQ_aem_X4KY6GOJ_fIr7jaYPS6RNA';
+        const target = '_blank'; // Use '_blank' to open in an in-app browser
+        const options = 'location=no,hidden=yes';
+
+        // Set loading indicator to true
+        this.isLoading = true;
+
+        try {
+            const ref = window.cordova.InAppBrowser.open(url, target, options);
+
+            // Listen for loadstart event to show loading indicator
+            const loadstartListener = () => {
+                this.isLoading = true;
+            };
+            ref.addEventListener('loadstart', loadstartListener);
+
+            // Listen for loadstop event to hide loading indicator
+            const loadstopListener = () => {
+                this.isLoading = false; // Hide loading indicator when fully loaded
+                ref.removeEventListener('loadstop', loadstopListener); // Clean up event listener
+            };
+
+            ref.addEventListener('loadstop', loadstopListener);
+            ref.show(); // Show the InAppBrowser immediately
+
+        } catch (error) {
+            // eslint-disable-next-line no-console
+            console.error('Error opening InAppBrowser:', error);
+            this.isLoading = false; // Hide loading indicator on error
+        }
+    }
+
     /**
      *Convenience function to get course. We use this to determine if a user can see the course or not.
      *

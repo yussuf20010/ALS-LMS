@@ -17,12 +17,10 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { CoreSharedModule } from '@/core/shared.module';
 import { CoreLoginComponentsModule } from '@features/login/components/components.module';
-import { CoreLoginReconnectPage } from '@features/login/pages/reconnect/reconnect';
 
 const routes: Routes = [
     {
         path: '',
-        component: CoreLoginReconnectPage,
     },
 ];
 
@@ -33,7 +31,6 @@ const routes: Routes = [
         CoreLoginComponentsModule,
     ],
     declarations: [
-        CoreLoginReconnectPage,
     ],
 })
 export class CoreLoginReconnectLazyModule {}

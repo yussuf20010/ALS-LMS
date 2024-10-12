@@ -30,11 +30,6 @@
                 </ion-item>
             </ng-container>
             <ng-container *ngIf="siteSelector !== 'url'">
-                <ion-item lines="inset">
-                    <ion-input name="url" placeholder="{{ 'core.login.siteaddressplaceholder' | translate }}" formControlName="siteUrl"
-                        [core-auto-focus]="showKeyboard && !showScanQR" (ionInput)="searchSite($event, siteForm.value.siteUrl)"
-                        labelPlacement="stacked" [label]="'core.login.siteaddress' | translate" [clearInput]="true" />
-                </ion-item>
 
                 <ion-list [class.hidden]="!hasSites && !enteredSiteUrl" class="core-login-site-list">
                     <ion-item class="core-login-site-list-title">

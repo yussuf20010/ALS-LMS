@@ -62,6 +62,7 @@ export class CoreMainMenuUserMenuComponent implements OnInit, OnDestroy {
 
     protected subscription!: Subscription;
 
+
     /**
      * @inheritdoc
      */
@@ -197,7 +198,23 @@ export class CoreMainMenuUserMenuComponent implements OnInit, OnDestroy {
         await CoreUserSupport.contact();
     }
 
-    /**
+    openPrivacyPolicy() {
+        const url = 'https://sef-testing-website.meemdev.com/privacy-guidelines';
+
+        // Use the InAppBrowser to open the URL
+        const browser = window.open(url, '_blank', 'location=no'); // Open the URL in InAppBrowser
+
+        // Check if the browser was opened successfully
+        if (browser) {
+          // Optional: Close the browser on the exit event
+          browser.addEventListener('exit', () => {
+            console.log('InAppBrowser closed');
+          });
+        } else {
+          console.error('Failed to open InAppBrowser. It may be blocked by the browser settings.');
+        }
+      }
+        /**
      * Logout the user.
      *
      * @param event Click event

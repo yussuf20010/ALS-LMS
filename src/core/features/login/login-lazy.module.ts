@@ -19,12 +19,9 @@ import { CoreSharedModule } from '@/core/shared.module';
 import { hasSitesGuard } from './guards/has-sites';
 import { CoreLoginComponentsModule } from './components/components.module';
 import { CoreLoginHelper } from './services/login-helper';
-import { CoreLoginForgottenPasswordPage } from '@features/login/pages/forgotten-password/forgotten-password';
 import { CoreUserComponentsModule } from '@features/user/components/components.module';
-import { CoreLoginEmailSignupPage } from '@features/login/pages/email-signup/email-signup';
 import { CoreLoginSitePage } from '@features/login/pages/site/site';
 import { CoreLoginSitesPage } from '@features/login/pages/sites/sites';
-import { CoreLoginChangePasswordPage } from '@features/login/pages/change-password/change-password';
 
 const routes: Routes = [
     {
@@ -45,22 +42,8 @@ const routes: Routes = [
         component: CoreLoginSitesPage,
         canActivate: [hasSitesGuard],
     },
-    {
-        path: 'forgottenpassword',
-        component: CoreLoginForgottenPasswordPage,
-    },
-    {
-        path: 'changepassword',
-        component: CoreLoginChangePasswordPage,
-    },
-    {
-        path: 'emailsignup',
-        component: CoreLoginEmailSignupPage,
-    },
-    {
-        path: 'reconnect',
-        loadChildren: () => CoreLoginHelper.getReconnectRouteModule(),
-    },
+
+
 ];
 
 @NgModule({
@@ -71,11 +54,8 @@ const routes: Routes = [
         RouterModule.forChild(routes),
     ],
     declarations: [
-        CoreLoginForgottenPasswordPage,
         CoreLoginSitePage,
         CoreLoginSitesPage,
-        CoreLoginChangePasswordPage,
-        CoreLoginEmailSignupPage,
     ],
 })
 export class CoreLoginLazyModule {}

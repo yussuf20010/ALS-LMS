@@ -34,7 +34,9 @@ class BuildLangTask {
      */
     addProperties(target, source, prefix) {
         for (let property in source) {
-            target[prefix + property] = source[property];
+            if (source.hasOwnProperty(property)) { // Ensure it's own property
+                target[`${prefix}${property}`] = source[property];
+            }
         }
     }
 
@@ -61,6 +63,9 @@ class BuildLangTask {
             return path + 'lang.json';
         });
 
+        // Define a separate destination path
+        const destinationPath = pathLib.join('./www/assets', 'lang'); // Update this path as needed
+
         gulp.src(paths, { allowEmpty: true })
             .pipe(slash())
             .pipe(clipEmptyFiles())
@@ -74,7 +79,7 @@ class BuildLangTask {
                 /* This implementation is based on gulp-jsoncombine module.
                  * https://github.com/reflog/gulp-jsoncombine */
                 if (firstFile) {
-                    const joinedPath = pathLib.join(firstFile.base, 'en.json');
+                    const joinedPath = pathLib.join(firstFile.base, 'en.json'); // You can customize the output filename
 
                     const joinedFile = new File({
                         cwd: firstFile.cwd,
@@ -88,7 +93,7 @@ class BuildLangTask {
 
                 this.emit('end');
             }))
-            .pipe(gulp.dest(pathLib.join('./src/assets', 'lang')))
+            .pipe(gulp.dest(destinationPath)) // Updated destination
             .on('end', done);
     }
 
@@ -105,27 +110,27 @@ class BuildLangTask {
         }
 
         try {
-            let path = file.path;
-            let length = 9;
+            let filePath = file.path;
+            let prefixLength = 9;
 
-            let srcPos = path.lastIndexOf('/src/app/');
+            let srcPos = filePath.lastIndexOf('/src/app/');
             if (srcPos < 0) {
                 // It's probably a Windows environment.
-                srcPos = path.lastIndexOf('\\src\\app\\');
+                srcPos = filePath.lastIndexOf('\\src\\app\\');
             }
             if (srcPos < 0) {
-                length = 5;
-                srcPos = path.lastIndexOf('/src/');
+                prefixLength = 5;
+                srcPos = filePath.lastIndexOf('/src/');
                 if (srcPos < 0) {
                     // It's probably a Windows environment.
-                    srcPos = path.lastIndexOf('\\src\\');
+                    srcPos = filePath.lastIndexOf('\\src\\');
                 }
             }
-            path = path.substr(srcPos + length);
+            filePath = filePath.substr(srcPos + prefixLength);
 
-            data[path] = JSON.parse(file.contents.toString());
+            data[filePath] = JSON.parse(file.contents.toString());
         } catch (err) {
-            console.log('Error parsing JSON: ' + err);
+            console.error('Error parsing JSON:', err);
         }
     }
 
@@ -144,7 +149,7 @@ class BuildLangTask {
 
             switch (folders[0]) {
                 case 'core':
-                    if (folders[1] == 'features') {
+                    if (folders[1] === 'features') {
                         return `core.${folders[2]}.`;
                     } else {
                         return 'core.';
@@ -160,9 +165,11 @@ class BuildLangTask {
         }
 
         for (let filepath in data) {
-            const prefix = getPrefix(filepath);
-            if (prefix) {
-                this.addProperties(merged, data[filepath], prefix);
+            if (data.hasOwnProperty(filepath)) { // Ensure it's own property
+                const prefix = getPrefix(filepath);
+                if (prefix) {
+                    this.addProperties(merged, data[filepath], prefix);
+                }
             }
         }
 
